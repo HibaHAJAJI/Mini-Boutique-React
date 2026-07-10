@@ -26,7 +26,7 @@
     "price": 98.0,
     "oldPrice": 130.0,
     "rating": 4.7,
-    "stock": 0,
+    "stock": 2,
     "image": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=700&q=80"
   },
   {
@@ -96,7 +96,7 @@
     "price": 54.0,
     "oldPrice": null,
     "rating": 4.3,
-    "stock": 0,
+    "stock": 5,
     "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=700&q=80"
   },
   {
@@ -119,16 +119,7 @@
     "stock": 25,
     "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=700&q=80"
   },
-  {
-    "id": 13,
-    "name": "Smart Fitness Watch",
-    "category": "Electronics",
-    "price": 149.0,
-    "oldPrice": 179.0,
-    "rating": 4.4,
-    "stock": 10,
-    "image": "https://images.unsplash.com/photo-1523170335258-f5c216ba55b5?w=700&q=80"
-  },
+
   {
     "id": 14,
     "name": "Ribbed Knit Sweater",

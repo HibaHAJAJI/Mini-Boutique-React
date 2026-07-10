@@ -2,17 +2,18 @@ import { useState } from 'react'
 import initialProducts from './data/products.json'
 import Header from './components/Header'
 import ProductList from './components/ProductList'
-import Cart from './components/Cart'
 import Footer from './components/Footer'
 
 function App() {
   const [products, setProducts] = useState(initialProducts)
   const [cart, setCart] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('All')
 
   const filteredProducts = products.filter(p => {
     const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase())
-    return matchSearch
+    const matchCategory = selectedCategory === 'All' || p.category.toLowerCase() === selectedCategory.toLowerCase()
+    return matchSearch && matchCategory
   })
 
   const addToCart = (product) => {
@@ -29,47 +30,29 @@ function App() {
     })
   }
 
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity <= 0) {
-      removeFromCart(id)
-      return
-    }
-    setCart(prev => prev.map(item => 
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    ))
-  }
-
-  const removeFromCart = (id) => {
-    setCart(prev => prev.filter(item => item.id !== id))
-  }
-
   const removeProduct = (id) => {
     setProducts(prev => prev.filter(p => p.id !== id))
   }
+
+  const totalCartItems = cart.reduce((acc, item) => acc + item.quantity, 0)
 
   return (
     <div className="app">
       <Header 
         searchTerm={searchTerm} 
         setSearchTerm={setSearchTerm}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        cartCount={totalCartItems}
       />
 
       <main className="main-content">
-        <div className="store-layout">
-          <div className="catalog-side">
-            <ProductList 
-              products={filteredProducts} 
-              onAddToCart={addToCart} 
-              onDeleteProduct={removeProduct} 
-            />
-          </div>
-          <div className="cart-side">
-            <Cart 
-              cartItems={cart} 
-              onRemove={removeFromCart}
-              onUpdateQuantity={updateQuantity}
-            />
-          </div>
+        <div className="catalog-full-width">
+          <ProductList 
+            products={filteredProducts} 
+            onAddToCart={addToCart} 
+            onDeleteProduct={removeProduct}
+          />
         </div>
       </main>
 

@@ -28,5 +28,5 @@ export default function Cart({ cartItems, onRemove, onUpdateQuantity }) {
         </>
       )}
     </aside>
-  );
+  )
 }
