@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import initialProducts from './data/products.json'
 import Header from './components/Header'
 import ProductList from './components/ProductList'
@@ -9,6 +9,21 @@ function App() {
   const [cart, setCart] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
+  
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('theme')
+    return savedTheme === 'dark'
+  })
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark')
+      localStorage.setItem('theme', 'dark')
+    } else {
+      document.body.classList.remove('dark')
+      localStorage.setItem('theme', 'light')
+    }
+  }, [darkMode])
 
   const filteredProducts = products.filter(p => {
     const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -30,6 +45,20 @@ function App() {
     })
   }
 
+  const updateQuantity = (id, newQuantity) => {
+    if (newQuantity <= 0) {
+      removeFromCart(id)
+      return
+    }
+    setCart(prev => prev.map(item => 
+      item.id === id ? { ...item, quantity: newQuantity } : item
+    ))
+  }
+
+  const removeFromCart = (id) => {
+    setCart(prev => prev.filter(item => item.id !== id))
+  }
+
   const removeProduct = (id) => {
     setProducts(prev => prev.filter(p => p.id !== id))
   }
@@ -37,23 +66,26 @@ function App() {
   const totalCartItems = cart.reduce((acc, item) => acc + item.quantity, 0)
 
   return (
-    <div className="app">
+    <div className={`app ${darkMode ? 'dark-mode-active' : ''}`}>
       <Header 
         searchTerm={searchTerm} 
         setSearchTerm={setSearchTerm}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
         cartCount={totalCartItems}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        cartItems={cart}
+        onRemoveCartItem={removeFromCart}
+        onUpdateQuantity={updateQuantity}
       />
 
       <main className="main-content">
-        <div className="catalog-full-width">
-          <ProductList 
-            products={filteredProducts} 
-            onAddToCart={addToCart} 
-            onDeleteProduct={removeProduct}
-          />
-        </div>
+        <ProductList 
+          products={filteredProducts}
+          onAddToCart={addToCart}
+          onDeleteProduct={removeProduct}
+        />
       </main>
 
       <Footer />
