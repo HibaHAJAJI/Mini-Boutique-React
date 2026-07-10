@@ -8,13 +8,25 @@ export default function ProductCard({ product, onAddToCart, onDeleteProduct }) {
       <div className="card-media">
         <img src={product.image} alt={product.name} />
         
-        {product.oldPrice && (
-          <span className="tag-badge sale">SALE</span>
-        )}
+        <div className="card-media-controls">
+          {product.oldPrice && !isOutOfStock ? (
+            <span className="tag-badge sale">SALE</span>
+          ) : (
+            <div />
+          )}
+          
+          <button 
+            className="btn-delete-card"
+            onClick={() => onDeleteProduct(product.id)}
+            aria-label="Delete product"
+          >
+            <RiDeleteBinLine size={18} />
+          </button>
+        </div>
+
         {isOutOfStock && (
           <span className="tag-badge stock">OUT OF STOCK</span>
         )}
-      
       </div>
 
       <div className="card-body">
@@ -42,14 +54,6 @@ export default function ProductCard({ product, onAddToCart, onDeleteProduct }) {
             disabled={isOutOfStock}
           >
             <i className="fas fa-shopping-bag"></i> Add to cart
-          </button>
-
-          <button 
-            className="btn-delete-card"
-            onClick={() => onDeleteProduct(product.id)}
-            title="Remove from catalog"
-          >
-         <RiDeleteBinLine />
           </button>
         </div>
       </div>
