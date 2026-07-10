@@ -14,7 +14,6 @@ export default function ProductCard({ product, onAddToCart, onDeleteProduct }) {
         <button className="btn-wishlist">
           <i className="far fa-heart"></i>
         </button>
-        {/* Delete button on image */}
         <button 
           className="btn-delete-product"
           onClick={() => onDeleteProduct(product.id)}
