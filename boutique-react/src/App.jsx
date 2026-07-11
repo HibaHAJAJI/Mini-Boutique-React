@@ -1,96 +1,120 @@
-import { useState, useEffect } from 'react'
-import initialProducts from './data/products.json'
-import Header from './components/Header'
-import ProductList from './components/ProductList'
-import Footer from './components/Footer'
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import initialProducts from './data/products.json';
 
-function App() {
-  const [products, setProducts] = useState(initialProducts)
-  const [cart, setCart] = useState([])
-  const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('All')
-  
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('theme')
-    return savedTheme === 'dark'
-  })
+import Header from './components/Header';
+import Footer from './components/Footer';
+
+import Catalogue from './pages/Catalogue';
+import AddProduct from './pages/AddProduct';
+import NotFound from './pages/NotFound';
+
+export default function App() {
+  const [products, setProducts] = useState(initialProducts);
+  const [cartItems, setCartItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [darkMode, setDarkMode] = useState(false);
+
+  const categories = ['All', 'Women', 'Men', 'Shoes', 'Accessories'];
 
   useEffect(() => {
     if (darkMode) {
-      document.body.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
+      document.body.classList.add('dark');
     } else {
-      document.body.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
+      document.body.classList.remove('dark');
     }
-  }, [darkMode])
+  }, [darkMode]);
 
-  const filteredProducts = products.filter(p => {
-    const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchCategory = selectedCategory === 'All' || p.category.toLowerCase() === selectedCategory.toLowerCase()
-    return matchSearch && matchCategory
-  })
-
-  const addToCart = (product) => {
-    if (product.stock === 0) return
-    setCart(prev => {
-      const existing = prev.find(item => item.id === product.id)
-      if (existing) {
-        if (existing.quantity >= product.stock) return prev
-        return prev.map(item => 
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        )
+  const handleAddToCart = (product) => {
+    setCartItems(prev => {
+      const exist = prev.find(item => item.id === product.id);
+      if (exist) {
+        return prev.map(item => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item);
       }
-      return [...prev, { ...product, quantity: 1 }]
-    })
-  }
+      return [...prev, { ...product, quantity: 1 }];
+    });
+  };
 
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity <= 0) {
-      removeFromCart(id)
-      return
+  const handleRemoveCartItem = (id) => {
+    setCartItems(prev => prev.filter(item => item.id !== id));
+  };
+
+  const handleUpdateQuantity = (id, newQty) => {
+    if (newQty < 1) {
+      handleRemoveCartItem(id);
+      return;
     }
-    setCart(prev => prev.map(item => 
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    ))
-  }
+    setCartItems(prev => prev.map(item => item.id === id ? { ...item, quantity: newQty } : item));
+  };
 
-  const removeFromCart = (id) => {
-    setCart(prev => prev.filter(item => item.id !== id))
-  }
+  const handleDeleteProduct = (id) => {
+    setProducts(prev => prev.filter(p => p.id !== id));
+  };
 
-  const removeProduct = (id) => {
-    setProducts(prev => prev.filter(p => p.id !== id))
-  }
+  const handleAddProduct = (newProduct) => {
+    const productWithId = {
+      ...newProduct,
+      id: Date.now(),
+      price: parseFloat(newProduct.price),
+      stock: 10,
+    };
+    setProducts([productWithId, ...products]);
+  };
 
-  const totalCartItems = cart.reduce((acc, item) => acc + item.quantity, 0)
+  const filteredProducts = products.filter(product => {
+    const matchesCategory = selectedCategory === 'All' || product.category.toLowerCase() === selectedCategory.toLowerCase();
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className={`app ${darkMode ? 'dark-mode-active' : ''}`}>
-      <Header 
-        searchTerm={searchTerm} 
-        setSearchTerm={setSearchTerm}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        cartCount={totalCartItems}
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
-        cartItems={cart}
-        onRemoveCartItem={removeFromCart}
-        onUpdateQuantity={updateQuantity}
-      />
-
-      <main className="main-content">
-        <ProductList 
-          products={filteredProducts}
-          onAddToCart={addToCart}
-          onDeleteProduct={removeProduct}
+    <BrowserRouter>
+      <div className={`app ${darkMode ? 'dark-mode-active' : ''}`}>
+        
+        <Header 
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          cartCount={cartCount}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          cartItems={cartItems}
+          onRemoveCartItem={handleRemoveCartItem}
+          onUpdateQuantity={handleUpdateQuantity}
         />
-      </main>
 
-      <Footer />
-    </div>
-  )
+        <nav className="pages-nav">
+          <NavLink to="/" end>Catalogue</NavLink>
+          <NavLink to="/add-product">+ Ajouter Produit</NavLink>
+        </nav>
+
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={
+              <Catalogue 
+                products={filteredProducts}
+                onAddToCart={handleAddToCart}
+                onDeleteProduct={handleDeleteProduct}
+                categories={categories}
+                selectedCategory={selectedCategory}
+                onSelectCategory={setSelectedCategory}
+              />
+            } />
+
+            <Route path="/add-product" element={
+              <AddProduct onAddProduct={handleAddProduct} />
+            } />
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
+    </BrowserRouter>
+  );
 }
-
-export default App
