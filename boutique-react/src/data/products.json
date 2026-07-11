@@ -5,7 +5,6 @@
     "category": "Women",
     "price": 189.0,
     "oldPrice": 249.0,
-    "rating": 4.8,
     "stock": 12,
     "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=700&q=80"
   },
@@ -15,7 +14,6 @@
     "category": "Men",
     "price": 134.0,
     "oldPrice": null,
-    "rating": 4.6,
     "stock": 8,
     "image": "https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=700&q=80"
   },
@@ -25,7 +23,6 @@
     "category": "Women",
     "price": 98.0,
     "oldPrice": 130.0,
-    "rating": 4.7,
     "stock": 2,
     "image": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=700&q=80"
   },
@@ -35,7 +32,6 @@
     "category": "Men",
     "price": 62.0,
     "oldPrice": null,
-    "rating": 4.4,
     "stock": 20,
     "image": "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=700&q=80"
   },
@@ -45,7 +41,6 @@
     "category": "Shoes",
     "price": 112.0,
     "oldPrice": 140.0,
-    "rating": 4.9,
     "stock": 15,
     "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&q=80"
   },
@@ -55,7 +50,6 @@
     "category": "Shoes",
     "price": 129.0,
     "oldPrice": null,
-    "rating": 4.5,
     "stock": 6,
     "image": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=700&q=80"
   },
@@ -65,7 +59,6 @@
     "category": "Shoes",
     "price": 156.0,
     "oldPrice": 190.0,
-    "rating": 4.7,
     "stock": 9,
     "image": "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=700&q=80"
   },
@@ -75,7 +68,6 @@
     "category": "Accessories",
     "price": 175.0,
     "oldPrice": null,
-    "rating": 4.8,
     "stock": 11,
     "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700&q=80"
   },
@@ -85,7 +77,6 @@
     "category": "Accessories",
     "price": 88.0,
     "oldPrice": 110.0,
-    "rating": 4.6,
     "stock": 14,
     "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=700&q=80"
   },
@@ -95,7 +86,6 @@
     "category": "Accessories",
     "price": 54.0,
     "oldPrice": null,
-    "rating": 4.3,
     "stock": 5,
     "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=700&q=80"
   },
@@ -105,7 +95,6 @@
     "category": "Electronics",
     "price": 219.0,
     "oldPrice": 259.0,
-    "rating": 4.9,
     "stock": 7,
     "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700&q=80"
   },
@@ -115,7 +104,6 @@
     "category": "Electronics",
     "price": 99.0,
     "oldPrice": null,
-    "rating": 4.5,
     "stock": 25,
     "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=700&q=80"
   },
@@ -126,7 +114,6 @@
     "category": "Women",
     "price": 76.0,
     "oldPrice": null,
-    "rating": 4.6,
     "stock": 18,
     "image": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=700&q=80"
   },
@@ -136,7 +123,6 @@
     "category": "Men",
     "price": 84.0,
     "oldPrice": 105.0,
-    "rating": 4.5,
     "stock": 13,
     "image": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=700&q=80"
   },
@@ -146,7 +132,6 @@
     "category": "Women",
     "price": 92.0,
     "oldPrice": null,
-    "rating": 4.2,
     "stock": 5,
     "image": "https://images.unsplash.com/photo-1544923408-75c5cef46f14?w=700&q=80"
   },
@@ -156,7 +141,6 @@
     "category": "Accessories",
     "price": 68.0,
     "oldPrice": 85.0,
-    "rating": 4.7,
     "stock": 9,
     "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?w=700&q=80"
   },
@@ -166,7 +150,6 @@
     "category": "Men",
     "price": 45.0,
     "oldPrice": null,
-    "rating": 4.3,
     "stock": 30,
     "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=700&q=80"
   }

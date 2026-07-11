@@ -33,10 +33,6 @@ export default function ProductCard({ product, onAddToCart, onDeleteProduct }) {
         <span className="card-cat">{product.category}</span>
         <h3>{product.name}</h3>
         
-        <div className="card-rating">
-          <i className="fas fa-star"></i>
-          <span>{product.rating || '4.8'}</span>
-        </div>
 
         <div className="card-price">
           ${product.price.toFixed(2)}

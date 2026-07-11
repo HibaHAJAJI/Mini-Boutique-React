@@ -466,17 +466,6 @@ body.dark .btn-delete-card {
   line-height: 1.4;
 }
 
-.card-rating {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: #FFB300;
-  margin-bottom: 10px;
-}
-.card-rating span {
-  color: var(--text-muted);
-}
 
 .card-price { 
   font-weight: 700; 
